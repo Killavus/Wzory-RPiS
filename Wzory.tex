@@ -1,0 +1,251 @@
+\documentclass[a4paper,12pt]{article} 
+\usepackage{polski}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{00A0}{~}
+
+\author{Marcin Grzywaczewski}
+\title{Lista wzorów z RPiSu}
+
+
+\begin{document}
+\maketitle
+
+\section{Podstawy}
+
+\subsection{Zmienna losowa}
+Zmienną losową $X$ nazywamy wynik pewnego losowania. Niemniej jednak na kursie zmienną losową utożsamiamy z jej \emph{gęstością}.
+
+\subsection{Gęstość zmiennej losowej dyskretnej}
+Gęstością zmiennej losowej dyskretnej nazywamy zbiór par $\{ \left(x_i,p_i\right) \mid i \in \{ 1, 2, \dots n \} \}$ taki, że $\left(\sum_{i \in \{ 1, 2, \dots n \}} p_i\right) = 1$. Co więcej, dla dowolnego $i$ mamy $p_i \geq 0$.
+
+Liczby $x_i$ nazywamy \emph{wartościami} zdarzeń, zaś $p_i$ --- \emph{prawdopodobieństwem (gęstością)} tych zdarzeń.
+
+\subsection{Gęstość zmiennej losowej ciągłej}
+Gęstością zmiennej losowej ciągłej nazywamy funkcję $\textrm{f}:W \rightarrow \left(0,1\right)$, gdzie $W$ --- zbiór wartości (zazwyczaj podzbiór ${R}$). Dla dowolnej gęstości zachodzi $\int_W \textrm{f}(x) \textrm{d}x$. Co więcej, dla każdego $x$ zachodzi $\textrm{f}(x) \geq 0$.
+
+\subsection{Operacje arytmetyczne na gęstościach zmiennych losowych dyskretnych}
+Operacje typu $X^2$, $\sqrt(X)$ i tak dalej dotyczą wartości zdarzeń, nie prawdopodobieństw. Operacje te nie zostały zdefiniowane na wykładzie, stąd też zamieszanie.
+
+\clearpage
+
+\subsection{Wartość oczekiwana}
+Wartością oczekiwaną $\textrm{E}\left(X\right)$ zmiennej losowej $X$ nazywamy funkcję zdefiniowaną następująco:
+\begin{description}
+\item[Dla zmiennej losowej dyskretnej:]
+  \begin{equation}
+    \sum_{i=0}^{n} x_i p_i
+  \end{equation}
+\item[Dla zmiennej losowej ciągłej:] 
+  \begin{equation}
+    \int_{-\infty}^{\infty} x\textrm{f}(x)\textrm{d}x
+  \end{equation}
+\end{description}
+
+Nazywana jest też wartością średnią, lub też nadzieją matematyczną. Czasami zapisujemy tą funkcję bez nawiasów --- np. $\textrm{E}X$.
+
+\subsection{Wariancja}
+Wariancją $\textrm{V}\left(X\right)$ zmiennej losowej $X$ nazywamy funkcję zdefiniowaną następująco:
+\begin{equation}
+  \textrm{V}(X) = \textrm{E}\left(\left(X - \textrm{E}X\right)^2\right)
+\end{equation}
+
+Zazwyczaj korzystamy z innego wzoru do obliczenia tej wartości. Wartość $\sqrt{\textrm{V}(X)}$ nazywamy odchyleniem standardowym zmiennej losowej $X$.
+
+\subsection{Dystrybuanta} 
+Dystrybuanta $\textrm{F}\left(t\right)$ zmiennej losowej $X$ to funkcja określająca dla danego prawdopodobieństwo wylosowania wartości mniejszej od $t$. Zapisujemy ją często jako $P\left(X \le t\right)$.
+
+\begin{description}
+\item[Definicja dla zmiennej losowej ciągłej:] 
+  \begin{equation}
+    \textrm{F}\left(t\right) = \int_{-\infty}^{t} \textrm{f}\left(x\right)\textrm{d}x
+  \end{equation}
+\item[Definicja dla zmiennej losowej dyskretnej:]
+  \begin{equation}
+    \textrm{F}\left(t\right) = \sum_{\left(x_i,p_i\right) \in L} p_i
+  \end{equation}
+  Gdzie $L$ --- zbiór takich $\left(x_i, p_i\right)$, że $x_i \le t$.
+\end{description}
+
+\subsection{Niezależność zmiennych losowych}
+
+Dwie zmienne losowe $X, Y$ są niezależne wtedy i tylko wtedy, gdy zachodzi:
+\begin{equation}
+\left(X = x_i, Y = y_j\right) = P\left(X = x_i\right) \cdot P\left(Y = y_j\right)
+\end{equation}
+
+\subsection{Intuicja stojąca za dystrybuantą}
+Zauważmy, że dowolna zmienna losowa $X$ jest definiowana przez jej gęstość. Aby wyznaczyć gęstość, należy znać wartości i prawdopodobieństwa tej zmiennej losowej. Jeżeli jednak znamy wartość dystrybuanty w każdym punkcie $t$, jesteśmy w stanie odtworzyć z tej informacji gęstość, licząc $F'$, czyli pochodną dystrybuanty.
+
+\subsection{Moment zwykły} 
+Momentem zwykłym $k$-tego rzędu nazywamy taką wartość $m_k$, że:
+\begin{equation}
+m_k = \textrm{E}\left(X^k\right)
+\end{equation}
+
+W szczególności $\textrm{E}\left(X\right) = m_1$.
+
+\subsection{Moment centralny}
+Momentem centralnym $k$-tego rzędu nazywamy taką wartość $\mu_k$, że:
+\begin{equation}
+\mu_k = \textrm{E}\left(\left(X - \textrm{E}\left(X\right)\right)^k\right)
+\end{equation}
+
+W szczególności $\mu_2 = \textrm{V}\left(X\right)$.
+
+\subsection{Alternatywny sposób (lepszy) na obliczanie wariancji:}
+Zazwyczaj wariancję oblicza się z innego niż ten podany na wykładzie. Można go było udowodnić na jednej z list. Niemniej jednak, warto pamiętać:
+\begin{equation}
+\textrm{V}\left(X\right) = \textrm{E}X^2 - \left(\textrm{E}X\right)^2
+\end{equation}
+
+\subsection{Wzór z Jakobianem}
+Słynny wzór z Jakobianem rzeczywiście pomaga trzaskać zadanka. Definiujemy go następująco:
+
+Niech $X$ to dana zmienna losowa powiązana z gęstością $\textrm{f}_X$ i niech $Y$ --- zmienna losowa powstała poprzez przekształcenie $X$ powiązana z gęstością $\textrm{f}_Y$. Niech $P_Y\left(x\right)$ to dane przekształcenie $x$ takie, że $P_Y\left(x\right) = y$. Jeżeli $P_Y$ jest odwracalne, tj.\ istnieje takie $P_X$, że $P_X\left(P_Y\left(x\right)\right) = x$, to możemy wyrazić gęstość $\textrm{f}_Y$ następująco:
+\begin{equation}
+\textrm{f}_Y\left(Y\right) = \textrm{f}_X\left(P_X\left(y\right)\right)|J|
+\end{equation}
+
+Gdzie $|J|$ --- wyznacznik macierzy pochodnych częściowych, czyli Jakobian. Przy czym w tak prostym przypadku (jednowymiarowym) po prostu bierzemy wartość pochodnej $P_X$. \emph{PS.\ Nie jestem tego pewien i proszę o weryfikację!}
+
+\section{Zmienne losowe dwuwymiarowe}
+Poniższe definicje zakładają istnienie dwóch zmiennych losowych $\left(X, Y\right)$, które wykorzystujemy. Istnieje także funkcja $\textrm{f}$ będąca gęstością tych dwóch zmiennych losowych. Pomijam definicje dla zmiennych losowych dyskretnych, gdyż wystarczy zamienić całki na sumę i wszystko dalej działa.
+
+\subsection{Rozkłady brzegowe}
+Dla każdego $\left(X, Y\right)$ istnieją dwie funkcje $\textrm{f}_1, \textrm{f}_2$ które są \emph{rozkładami brzegowymi} tych zmiennych i są zdefiniowane następująco:
+\begin{equation}
+\textrm{f}_1\left(x\right) = \int_{{R}} \textrm{f}\left(x,y\right)\textrm{d}y
+\end{equation}
+\begin{equation}
+\textrm{f}_2\left(y\right) = \int_{{R}} \textrm{f}\left(x,y\right)\textrm{d}x
+\end{equation}
+Intuicja jest taka, że jest to zsumowanie rzędów lub kolumn w naszej tabelce gęstości zmiennych losowych.
+
+\subsection{Niezależność zmiennych losowych w kontekście rozkładów brzegowych}
+Za pomocą pojęcia rozkładów brzegowych możemy wyrazić niezależność zmiennych losowych. Wystarczy, że pomiędzy naszą funkcją gęstości $\textrm{f}$, a rozkładami brzegowymi $\textrm{f}_1, \textrm{f}_2$ zachodzi następująca równość:
+\begin{equation}
+\textrm{f}\left(x, y\right) = \textrm{f}_1\left(y\right)\textrm{f}_2\left(x\right)
+\end{equation}
+
+\subsection{Rozkłady warunkowe}
+Oprócz rozkładów brzegowych dla pary zmiennych losowych zdefiniowane są także rozkłady warunkowe, zdefiniowane następująco:
+\begin{equation}
+\textrm{f}\left(x \mid y\right) = \frac{\textrm{f}\left(x, y\right)}{\textrm{f}_2\left(y\right)}
+\end{equation}
+
+\begin{equation}
+\textrm{f}\left(y \mid x\right) = \frac{\textrm{f}\left(x, y\right)}{\textrm{f}_1\left(x\right)}  
+\end{equation}
+
+Warto zauważyć, że są to pełnoprawne jednowymiarowe gęstości.
+
+\subsection{Dystrybuanta dwuwymiarowej zmiennej losowej}
+Dla par zmiennych losowych można następująco zdefiniować ich dystrybuantę:
+
+\begin{equation}
+  \textrm{F}\left(s, t\right) = \int_{-\infty}^{s}\int_{-\infty}^{t} \textrm{f}\left(x, y\right)\textrm{d}y\textrm{d}x
+\end{equation}
+
+\subsection{Właściwości dwuwymiarowej zmiennej losowej}
+Funkcje charakteryzujące dwuwymiarowe zmienne losowe mają kilka ciekawych z punktu widzenia zadań własności:
+\begin{equation}
+\textrm{E}\left(X + Y\right) = \textrm{E}X + \textrm{E}Y
+\end{equation}
+
+Jeżeli zmienne losowe są niezależne, to:
+\begin{equation}
+\textrm{E}\left(XY\right) = \textrm{E}X\textrm{E}Y
+\end{equation}
+
+Mamy także:
+\begin{equation}
+\textrm{V}\left(X + Y\right) = \textrm{V}\left(X\right) + \textrm{V}\left(Y\right) + 2\textrm{Cov}\left(X, Y\right)
+\end{equation}
+
+Gdzie $\textrm{Cov}\left(X, Y\right)$ to \emph{kowariancja} zmiennych losowych. Definiujemy ją jako:
+\begin{equation}
+  \textrm{Cov}\left(X, Y\right) = \textrm{E}\left(\left(X - \textrm{E}X\right)\left(Y - \textrm{E}Y\right)\right)
+\end{equation}
+
+Jeżeli zmienne są niezależne, to $\textrm{Cov}\left(X, Y\right) = 0$.
+
+\subsection{Momenty mieszane}
+Moment mieszany $k+l$-tego rzędu zdefiniowany jest następująco:
+\begin{equation}
+\mu_{k,l} = \textrm{E}\left(\left(X - \textrm{E}X\right)^k\left(Y - \textrm{E}Y\right)^l\right)
+\end{equation}
+
+W szczególności $\mu_{1,1} = \textrm{Cov}\left(X, Y\right)$.
+
+\section{Rozkład normalny}
+
+\subsection{Standardowy rozkład normalny}
+Oznaczamy $X \sim \textrm{N}\left(0, 1\right)$:
+\begin{equation}
+\textrm{f}\left(x\right) = \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}, x \in {R}
+\end{equation}
+
+\subsection{Rozkład normalny}
+Oznaczamy $X \sim \textrm{N}\left(\mu, \sigma^2\right)$ ($\mu$ --- wartość oczekiwana, $\sigma^2$ --- wariancja):
+\begin{equation}
+\textrm{f}\left(x\right) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{\left(x - \mu\right)^2}{2}}, x \in {R}
+\end{equation}
+
+Często $e^X$ zapisujemy jako $\exp\left({X}\right)$. Stąd też rozkład normalny czasem zapisuje się jako:
+\begin{equation}
+\textrm{f}\left(x\right) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{\left(x - \mu\right)^2}{2}\right), x \in {R}
+\end{equation}
+
+\subsection{Całka Poissona}
+Nie będę przytaczał wyprowadzenia (trik z zamienieniem układu współrzędnych na biegunowe), niemniej jednak warto wiedzieć, że:
+\begin{equation}
+\int_{-\infty}^{\infty}\exp\left(-\frac{x^2}{2}\right)\textrm{d}x = \sqrt{2\pi}
+\end{equation}
+
+\section{Rozkład jednostajny}
+\subsection{Definicja}
+Oznaczamy $X \sim \textrm{U}\left(a, b\right)$:
+\begin{equation}
+\textrm{f}\left(x\right) = \frac{x}{b-a}, a \leq x \leq b
+\end{equation}
+Lub, jeżeli $x$ leży w innym przedziale:
+\begin{equation}
+\textrm{f}\left(x\right) = 0
+\end{equation}
+
+\section{Rozkład wykładniczy}
+
+\subsection{Definicja}
+Oznaczamy $X \sim \textrm{Exp}\left(\lambda\right)$, przy czym $\lambda \geq 0$:
+\begin{equation}
+\textrm{f}\left(x\right) = \lambda e^{-\lambda x}
+\end{equation}
+
+\section{Rozkład Gamma}
+
+\subsection{Funkcja Gamma Eulera}
+\begin{equation}
+\Gamma\left(p\right) = \int_{0}^{\infty}x^{p-1}e^{-x}\textrm{d}x
+\end{equation}
+\begin{equation}
+p \in {N} \implies \Gamma\left(p\right) = \left(p-1\right)!
+\end{equation}
+
+Funkcja ta jest uogólnieniem silni na liczby rzeczywiste.
+
+Tak przy okazji:
+\begin{equation}
+2 \cdot 4 \cdot 6 \cdot \cdots \cdot \left(2n\right) = \left(2n\right)!!
+\end{equation}
+\begin{equation}
+1 \cdot 3 \cdot 5 \cdot \cdots \cdot \left(2n+1\right) = \left(2n+1\right)!!
+\end{equation}
+
+\subsection{Definicja rozkładu}
+
+Oznaczamy $X \sim \textrm{Gamma}\left(b, p\right)$:
+\begin{equation}
+\textrm{f}\left(x\right) = \frac{b^p}{\Gamma\left(p\right)}x^{p-1}e^{-bx}, x \in \left(0, \infty\right)
+\end{equation}
+\end{document}
